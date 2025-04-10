@@ -12,6 +12,13 @@ function parseNpt(time) {
   }
 }
 
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  seconds = Math.floor(seconds % 60);
+  const paddedSeconds = seconds.toString().padStart(2, "0");
+  return `${minutes}:${paddedSeconds}`;
+}
+
 function debounce(f, delay) {
   let timeout;
 
@@ -33,4 +40,4 @@ function throttle(f, interval) {
   };
 }
 
-export { parseNpt, debounce, throttle };
+export { parseNpt, debounce, throttle, formatTime };

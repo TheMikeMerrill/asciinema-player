@@ -64,6 +64,20 @@ div.ap-wrapper {
 }
 
 .ap-player {
+  position: relative;
+  background-color: var(--term-color-background);
+  color: var(--term-color-foreground);
+  font-family: @monospace;
+  font-size: 15px;
+  line-height: 1;
+  box-sizing: content-box;
+  overflow: hidden;
+
+  .ap-terminal-container {
+    display: flex;
+    height: calc(100% - @control-bar-height);
+  }
+
   // default text color
   --term-color-foreground: #ffffff;
   // default background color

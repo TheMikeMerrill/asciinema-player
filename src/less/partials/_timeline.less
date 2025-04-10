@@ -1,0 +1,120 @@
+.ap-timeline {
+  width: 400px;
+  height: 100%;
+  background-color: var(--term-color-background);
+  border-left: 2px solid color-mix(in oklab, var(--term-color-background) 80%, var(--term-color-foreground));
+  display: flex;
+  flex-direction: column;
+  color: var(--term-color-foreground);
+  font-family: @monospace;
+  font-size: 13px;
+  line-height: 1.4;
+
+  .ap-timeline-header {
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid color-mix(in oklab, var(--term-color-foreground) 20%, var(--term-color-background));
+  }
+
+  .ap-timeline-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .ap-no-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: color-mix(in oklab, var(--term-color-foreground) 50%, var(--term-color-background));
+    font-style: italic;
+  }
+
+  .ap-marker-details {
+    flex: 1;
+    padding: 10px;
+    font-size: 12px;
+
+    .ap-marker-details-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ap-marker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      
+      h3 {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+        color: var(--term-color-foreground);
+      }
+    }
+
+    .ap-marker-section {
+      h4 {
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0 0 5px;
+        color: var(--term-color-foreground);
+      }
+
+      p {
+        margin: 0 0 5px;
+        line-height: 1.4;
+      }
+
+      ul {
+        margin: 5px 0;
+        padding-left: 10px;
+
+        li {
+          margin: 5px 0;
+          display: flex;
+          flex-direction: column;
+          
+          code {
+            background-color: color-mix(in oklab, var(--term-color-foreground) 10%, var(--term-color-background));
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: @monospace;
+            font-size: 11px;
+            white-space: pre-wrap;
+            word-break: break-all;
+          }
+        }
+      }
+    }
+
+    .ap-marker-command-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 2px;
+      font-size: 10px;
+    }
+
+    .ap-marker-command-blocking,
+    .ap-marker-command-timeout {
+      color: color-mix(in oklab, var(--term-color-foreground) 70%, var(--term-color-background));
+    }
+
+    .ap-marker-task-complete {
+      color: #4CAF50;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .ap-marker-task-incomplete {
+      color: #FF9800;
+      font-size: 11px;
+      font-weight: bold;
+    }
+  }
+} 
+ 

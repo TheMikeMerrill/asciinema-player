@@ -3,6 +3,7 @@ import { createStore, reconcile } from "solid-js/store";
 import { debounce } from "../util";
 import Terminal from "./Terminal";
 import ControlBar from "./ControlBar";
+import Timeline from "./Timeline";
 import ErrorOverlay from "./ErrorOverlay";
 import LoaderOverlay from "./LoaderOverlay";
 import InfoOverlay from "./InfoOverlay";
@@ -467,20 +468,16 @@ export default (props) => {
     return style;
   };
 
-  const play = () => {
-    coreReady.then(() => core.play());
+  const playerClass = () => `ap-player asciinema-player-theme-${theme().name}`;
+  const terminalScale = () => terminalElementSize()?.scale;
+
+  const seek = (where) => {
+    core.seek(where);
   };
 
   const togglePlay = () => {
-    coreReady.then(() => core.togglePlay());
+    core.togglePlay();
   };
-
-  const seek = (pos) => {
-    coreReady.then(() => core.seek(pos));
-  };
-
-  const playerClass = () => `ap-player asciinema-player-theme-${theme().name}`;
-  const terminalScale = () => terminalElementSize()?.scale;
 
   const el = (
     <div
@@ -500,18 +497,26 @@ export default (props) => {
         onMouseMove={() => onUserActive(true)}
         ref={playerRef}
       >
-        <Terminal
-          cols={terminalCols()}
-          rows={terminalRows()}
-          scale={terminalScale()}
-          blink={state.blink}
-          lines={state.lines}
-          cursor={state.cursor}
-          cursorHold={state.cursorHold}
-          fontFamily={props.terminalFontFamily}
-          lineHeight={props.terminalLineHeight}
-          ref={terminalRef}
-        />
+        <div class="ap-terminal-container">
+          <Terminal
+            cols={terminalCols()}
+            rows={terminalRows()}
+            scale={terminalScale()}
+            blink={state.blink}
+            lines={state.lines}
+            cursor={state.cursor}
+            cursorHold={state.cursorHold}
+            fontFamily={props.terminalFontFamily}
+            lineHeight={props.terminalLineHeight}
+            ref={terminalRef}
+          />
+          <Timeline
+            duration={duration()}
+            currentTime={state.currentTime}
+            markers={markers}
+            onSeekClick={seek}
+          />
+        </div>
         <Show when={props.controls !== false}>
           <ControlBar
             duration={duration()}

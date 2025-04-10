@@ -52,7 +52,17 @@ function recording(
     }
 
     const poster = posterTime !== undefined ? getPoster(posterTime) : undefined;
-    markers = events.filter((e) => e[1] === "m").map((e) => [e[0], e[2].label]);
+    
+    // Process markers to handle JSON content
+    markers = events.filter((e) => e[1] === "m").map((e) => {
+      // If the marker has a label that looks like JSON, keep it as is
+      if (typeof e[2] === 'string' && e[2].startsWith('{')) {
+        return [e[0], e[2]];
+      } else {
+        // Otherwise, use the label property
+        return [e[0], e[2].label || ""];
+      }
+    });
 
     return { cols, rows, duration, theme: recording.theme, poster, markers };
   }
@@ -512,7 +522,12 @@ function markerWrapper() {
 
   return function (e) {
     if (e[1] === "m") {
-      return [e[0], e[1], { index: i++, time: e[0], label: e[2] }];
+      // If the marker has a label that looks like JSON, keep it as is
+      if (typeof e[2] === 'string' && e[2].startsWith('{')) {
+        return [e[0], e[1], e[2]];
+      } else {
+        return [e[0], e[1], { index: i++, time: e[0], label: e[2] }];
+      }
     } else {
       return e;
     }

@@ -149,7 +149,7 @@ export default (props) => {
             <For each={markers()}>
               {(m, i) => (
                 <span
-                  class="ap-marker-container ap-tooltip-container"
+                  class="ap-marker-container"
                   style={{ left: markerPosition(m) }}
                   onClick={seekToMarker(i())}
                   onMouseDown={(e) => {
@@ -157,7 +157,6 @@ export default (props) => {
                   }}
                 >
                   <span class="ap-marker" classList={{ "ap-marker-past": isPastMarker(m) }}></span>
-                  <span class="ap-tooltip">{markerText(m)}</span>
                 </span>
               )}
             </For>
