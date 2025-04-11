@@ -510,12 +510,14 @@ export default (props) => {
             lineHeight={props.terminalLineHeight}
             ref={terminalRef}
           />
-          <Timeline
-            duration={duration()}
-            currentTime={state.currentTime}
-            markers={markers}
-            onSeekClick={seek}
-          />
+          <Show when={markers.length > 0}>
+            <Timeline
+              duration={duration()}
+              currentTime={state.currentTime}
+              markers={markers}
+              onSeekClick={seek}
+            />
+          </Show>
         </div>
         <Show when={props.controls !== false}>
           <ControlBar
