@@ -30,17 +30,17 @@
 </head>
 <body>
   <div class="container">
-    <h1>Asciinema Player Test</h1>
+    <h1>T-Bench Player Test</h1>
     <div id="player"></div>
   </div>
 
   <!-- Load the asciinema player script -->
   <link rel="stylesheet" href="dist/bundle/asciinema-player.css">
-  <script src="dist/bundle/asciinema-player.js"></script>
+  <script src="dist/bundle/asciinema-player.min.js"></script>
   
   <script>
     // Initialize the player with our sample recording with markers
-    AsciinemaPlayer.create('sample-with-markers.cast', document.getElementById('player'), {
+    AsciinemaPlayer.create('https://asciinema.org/a/nDCiE1r9SXe0Uhk2CiMfiyKQ2', document.getElementById('player'), {
       theme: 'asciinema',
       autoPlay: true,
       loop: false,
