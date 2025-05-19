@@ -26,6 +26,57 @@
       width: 100%;
       height: 500px;
     }
+
+    /* Responsive styles for the player */
+    /* @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      
+      #player {
+        height: 400px;
+      }
+    } */
+
+    /* Adjust the sidebar width for mobile */
+    /* .ap-timeline {
+      width: 85% !important;
+      max-width: 300px;
+    }
+
+    /* Adjust text size for better readability */
+    /* .ap-timeline .ap-timeline-header {
+      font-size: 14px;
+      padding: 8px;
+    }
+
+    .ap-timeline .ap-marker-details {
+      font-size: 11px;
+      padding: 8px;
+    }
+
+    .ap-timeline .ap-marker-details .ap-marker-header h3 {
+      font-size: 13px;
+    }
+
+    .ap-timeline .ap-marker-details .ap-marker-section h4 {
+      font-size: 11px;
+    }
+
+    .ap-timeline .ap-marker-details .ap-marker-section code {
+      font-size: 10px;
+    } */ 
+
+    /* Adjust the terminal font size for mobile */
+    /* .ap-player {
+      font-size: 13px !important;
+    } */
+
+    /* Make control bar more visible on mobile */
+    /* .ap-player .ap-control-bar {
+      background-color: rgba(0, 0, 0, 0.8);
+      opacity: 1 !important;
+    } */
   </style>
 </head>
 <body>
@@ -39,11 +90,18 @@
   <script src="dist/bundle/asciinema-player.min.js"></script>
   
   <script>
+    // Check if we're on a mobile device
+    const isMobile = window.innerWidth <= 768;
+    console.log("isMobile");
+    console.log(isMobile);
+
     // Initialize the player with our sample recording with markers
-    AsciinemaPlayer.create('https://asciinema.org/a/nDCiE1r9SXe0Uhk2CiMfiyKQ2', document.getElementById('player'), {
+    AsciinemaPlayer.create('sample-with-markers.cast', document.getElementById('player'), {
       theme: 'asciinema',
       autoPlay: true,
       loop: false,
+      fit: 'width', // Ensure the player fits the width of the container
+      ...(isMobile && { controls: true }),
       // The markers are already in the recording file
     });
   </script>

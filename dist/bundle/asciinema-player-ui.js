@@ -1735,8 +1735,25 @@ var AsciinemaPlayer = (function (exports) {
   const _tmpl$$6 = /*#__PURE__*/template(`<div class="ap-no-marker"><p>No marker selected</p></div>`),
     _tmpl$2$1 = /*#__PURE__*/template(`<div class="ap-timeline"><button class="ap-timeline-toggle"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor"></path></svg></button><div class="ap-timeline-container"></div></div>`);
   var Timeline = (props => {
-    const [isVisible, setIsVisible] = createSignal(true);
+    // Check if we're on a mobile device (width <= 768px)
+    const isMobile = () => window.innerWidth <= 768;
+
+    // Initialize visibility based on device type
+    const [isVisible, setIsVisible] = createSignal(!isMobile());
     const [isTransitioning, setIsTransitioning] = createSignal(false);
+
+    // Handle window resize
+    const handleResize = () => {
+      if (isMobile()) {
+        setIsVisible(false);
+      }
+    };
+    onMount(() => {
+      window.addEventListener('resize', handleResize);
+    });
+    onCleanup(() => {
+      window.removeEventListener('resize', handleResize);
+    });
     const markers = createMemo(() => typeof props.duration === "number" ? props.markers.filter(m => m[0] < props.duration) : []);
     const [selectedMarker, setSelectedMarker] = createSignal(null);
 
