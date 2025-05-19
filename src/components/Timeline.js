@@ -1,10 +1,29 @@
-import { createMemo, Show, createSignal, onMount } from "solid-js";
+import { createMemo, Show, createSignal, onMount, onCleanup } from "solid-js";
 import { formatTime } from "../util";
 import MarkerDetails from "./MarkerDetails";
 
 export default (props) => {
-  const [isVisible, setIsVisible] = createSignal(true);
+  // Check if we're on a mobile device (width <= 768px)
+  const isMobile = () => window.innerWidth <= 768;
+  
+  // Initialize visibility based on device type
+  const [isVisible, setIsVisible] = createSignal(!isMobile());
   const [isTransitioning, setIsTransitioning] = createSignal(false);
+
+  // Handle window resize
+  const handleResize = () => {
+    if (isMobile()) {
+      setIsVisible(false);
+    }
+  };
+
+  onMount(() => {
+    window.addEventListener('resize', handleResize);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener('resize', handleResize);
+  });
 
   const markers = createMemo(() =>
     typeof props.duration === "number" ? props.markers.filter((m) => m[0] < props.duration) : [],
